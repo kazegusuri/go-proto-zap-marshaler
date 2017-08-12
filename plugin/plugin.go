@@ -51,7 +51,7 @@ func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *
 
 	for _, field := range message.Field {
 		fieldName := p.GetOneOfFieldName(message, field)
-		jsonName := field.GetJsonName()
+		jsonName := field.GetName()
 		variableName := "m." + fieldName
 		p.P(`keyName = "`, jsonName, `" // field `, field.GetName(), " = ", fmt.Sprint(field.GetNumber()))
 
