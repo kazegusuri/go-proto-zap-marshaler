@@ -22,10 +22,12 @@ It has these top-level messages:
 package examples
 
 import go_uber_org_zap_zapcore "go.uber.org/zap/zapcore"
+import github_com_golang_protobuf_ptypes "github.com/golang/protobuf/ptypes"
 import proto "github.com/gogo/protobuf/proto"
 import fmt "fmt"
 import math "math"
 import _ "github.com/golang/protobuf/ptypes/duration"
+import _ "github.com/golang/protobuf/ptypes/timestamp"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -388,11 +390,13 @@ func (m *WellKnownTypeMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.Obje
 	_ = keyName
 
 	keyName = "duration" // field duration = 1
-	if m.Duration != nil {
-		var vv interface{} = m.Duration
-		if marshaler, ok := vv.(go_uber_org_zap_zapcore.ObjectMarshaler); ok {
-			enc.AddObject(keyName, marshaler)
-		}
+	if d, err := github_com_golang_protobuf_ptypes.Duration(m.Duration); err == nil {
+		enc.AddDuration(keyName, d)
+	}
+
+	keyName = "timestamp" // field timestamp = 2
+	if t, err := github_com_golang_protobuf_ptypes.Timestamp(m.Timestamp); err == nil {
+		enc.AddTime(keyName, t)
 	}
 
 	return nil

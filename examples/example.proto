@@ -4,6 +4,7 @@ package kazegusuri.zapmarshaler.example;
 option go_package = "examples";
 
 import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
 
 message SimpleMessage {
   string string_value = 1;
@@ -109,4 +110,5 @@ message JsonNameOptionMessage {
 
 message WellKnownTypeMessage {
   google.protobuf.Duration duration = 1;
+  google.protobuf.Timestamp timestamp = 2;
 }

@@ -1,6 +1,9 @@
 package examples
 
 import (
+	"time"
+
+	"github.com/golang/protobuf/ptypes"
 	"go.uber.org/zap"
 )
 
@@ -145,4 +148,15 @@ func ExampleJsonNameOptionMessage() {
 		StringValue: "xxx",
 	}))
 	// output: {"level":"info","msg":"test","json_name":{"string_value":"xxx"}}
+}
+
+func ExampleWellKnownTypeMessage() {
+	d := ptypes.DurationProto(10 * time.Minute)
+	t, _ := ptypes.TimestampProto(time.Unix(1502533013, 125892275))
+	l := zap.NewExample()
+	l.Info("test", zap.Object("wkt", &WellKnownTypeMessage{
+		Duration:  d,
+		Timestamp: t,
+	}))
+	// output: {"level":"info","msg":"test","wkt":{"duration":"10m0s","timestamp":"2017-08-12T10:16:53.125Z"}}
 }
