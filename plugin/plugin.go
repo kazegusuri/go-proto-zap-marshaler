@@ -12,6 +12,7 @@ type plugin struct {
 	*generator.Generator
 	generator.PluginImports
 	zapcore generator.Single
+	ptypes  generator.Single
 }
 
 func NewPlugin() generator.Plugin {
@@ -29,6 +30,7 @@ func (p *plugin) Init(g *generator.Generator) {
 func (p *plugin) Generate(file *generator.FileDescriptor) {
 	p.PluginImports = generator.NewPluginImports(p.Generator)
 	p.zapcore = p.NewImport("go.uber.org/zap/zapcore")
+	p.ptypes = p.NewImport("github.com/golang/protobuf/ptypes")
 
 	for _, msg := range file.Messages() {
 		if msg.DescriptorProto.GetOptions().GetMapEntry() {
@@ -105,6 +107,25 @@ func (p *plugin) isOneofType(field *descriptor.FieldDescriptorProto) bool {
 
 func (p *plugin) generateForField(file *generator.FileDescriptor, message *generator.Descriptor, field *descriptor.FieldDescriptorProto, keyName, variableName string, repeated bool) {
 	// TODO: support well known type to log pretty message
+	// TODO: marshal unknown type
+
+	switch field.GetTypeName() {
+	case ".google.protobuf.Duration":
+		p.P(`if d, err := `, p.ptypes.Use(), ".Duration(", variableName, "); err == nil {")
+		p.In()
+		p.generateAdder("Duration", keyName, "d", repeated)
+		p.Out()
+		p.P(`}`)
+		return
+
+	case ".google.protobuf.Timestamp":
+		p.P(`if t, err := `, p.ptypes.Use(), ".Timestamp(", variableName, "); err == nil {")
+		p.In()
+		p.generateAdder("Time", keyName, "t", repeated)
+		p.Out()
+		p.P(`}`)
+		return
+	}
 
 	if p.IsMap(field) {
 		mapDesc := p.GoMapType(nil, field)
