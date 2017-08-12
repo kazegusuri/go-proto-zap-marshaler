@@ -138,3 +138,11 @@ func ExampleMapMessage() {
 	}))
 	// output: {"level":"info","msg":"test","map":{"mapped_value":{"1":"foo","2":"bar"},"mapped_enum_value":{"one":"ONE","two":"TWO"},"mapped_nested_value":{"foo":{"nested_value":{"int32_value":100,"string_value":"xxx"},"repeated_nested_values":[{"int32_value":200,"string_value":"yyy"},{"int32_value":300,"string_value":"zzz"}]}}}}
 }
+
+func ExampleJsonNameOptionMessage() {
+	l := zap.NewExample()
+	l.Info("test", zap.Object("json_name", &JsonNameOptionMessage{
+		StringValue: "xxx",
+	}))
+	// output: {"level":"info","msg":"test","json_name":{"string_value":"xxx"}}
+}

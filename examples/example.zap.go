@@ -16,6 +16,7 @@ It has these top-level messages:
 	Oneof
 	OneofMessage
 	MapMessage
+	JsonNameOptionMessage
 	WellKnownTypeMessage
 */
 package examples
@@ -368,6 +369,16 @@ func (m *MapMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder)
 		}
 		return nil
 	}))
+
+	return nil
+}
+
+func (m *JsonNameOptionMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+	var keyName string
+	_ = keyName
+
+	keyName = "string_value" // field string_value = 1
+	enc.AddString(keyName, m.StringValue)
 
 	return nil
 }

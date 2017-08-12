@@ -103,6 +103,10 @@ message MapMessage {
   map<string, NestedMessage> mapped_nested_value = 3;
 }
 
+message JsonNameOptionMessage {
+  string string_value = 1 [json_name="renamed_value"];;
+}
+
 message WellKnownTypeMessage {
   google.protobuf.Duration duration = 1;
 }
