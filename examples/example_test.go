@@ -52,7 +52,6 @@ func ExampleRepeatedNumberMessage() {
 }
 
 func ExampleNestedMessage() {
-	// TODO
 	l := zap.NewExample()
 	l.Info("test", zap.Object("nested", &NestedMessage{
 		NestedValue: &NestedMessage_Nested{
@@ -70,7 +69,7 @@ func ExampleNestedMessage() {
 			},
 		},
 	}))
-	// output: {"level":"info","msg":"test","nested":{"nestedValue":{"int32Value":100,"stringValue":"xxx"}}}
+	// output: {"level":"info","msg":"test","nested":{"nestedValue":{"int32Value":100,"stringValue":"xxx"},"repeatedNestedValues":[{"int32Value":200,"stringValue":"yyy"},{"int32Value":300,"stringValue":"zzz"}]}}
 }
 
 func ExampleEnumMessage() {
@@ -92,7 +91,6 @@ func ExampleEnumMessage() {
 }
 
 func ExampleOneofMessage() {
-	// TODO
 	l := zap.NewExample()
 	l.Info("test", zap.Object("oneof", &OneofMessage{
 		OneofValue: &OneofMessage_Int32Value{Int32Value: 1000},
@@ -105,16 +103,15 @@ func ExampleOneofMessage() {
 			},
 		},
 	}))
-	// output: {"level":"info","msg":"test","oneof":{}}
+	// output: {"level":"info","msg":"test","oneof":{"int32Value":1000,"repeatedOneofValues":[{"int32Value":1000},{"stringValue":"xyz"}]}}
 }
 
 func ExampleMapMessage() {
-	// TODO
 	l := zap.NewExample()
 	l.Info("test", zap.Object("map", &MapMessage{
-		MappedValue: map[string]string{
-			"foo": "foo1",
-			"bar": "bar1",
+		MappedValue: map[int32]string{
+			1: "foo",
+			2: "bar",
 		},
 		MappedEnumValue: map[string]NumericEnum{
 			"one": NumericEnum_ONE,
@@ -139,5 +136,5 @@ func ExampleMapMessage() {
 			},
 		},
 	}))
-	// output: {"level":"info","msg":"test","map":{}}
+	// output: {"level":"info","msg":"test","map":{"mappedValue":{"1":"foo","2":"bar"},"mappedEnumValue":{"one":"ONE","two":"TWO"},"mappedNestedValue":{"foo":{"nestedValue":{"int32Value":100,"stringValue":"xxx"},"repeatedNestedValues":[{"int32Value":200,"stringValue":"yyy"},{"int32Value":300,"stringValue":"zzz"}]}}}}
 }

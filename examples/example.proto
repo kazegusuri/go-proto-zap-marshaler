@@ -3,6 +3,8 @@ syntax = "proto3";
 package kazegusuri.zapmarshaler.example;
 option go_package = "examples";
 
+import "google/protobuf/duration.proto";
+
 message SimpleMessage {
   string string_value = 1;
   bool bool_value = 2;
@@ -96,7 +98,11 @@ message OneofMessage {
 }
 
 message MapMessage {
-  map<string, string> mapped_value = 1;
+  map<int32, string> mapped_value = 1;
   map<string, NumericEnum> mapped_enum_value = 2;
   map<string, NestedMessage> mapped_nested_value = 3;
+}
+
+message WellKnownTypeMessage {
+  google.protobuf.Duration duration = 1;
 }

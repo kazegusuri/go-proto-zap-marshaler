@@ -16,6 +16,7 @@ It has these top-level messages:
 	Oneof
 	OneofMessage
 	MapMessage
+	WellKnownTypeMessage
 */
 package examples
 
@@ -23,6 +24,7 @@ import go_uber_org_zap_zapcore "go.uber.org/zap/zapcore"
 import proto "github.com/gogo/protobuf/proto"
 import fmt "fmt"
 import math "math"
+import _ "github.com/golang/protobuf/ptypes/duration"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -30,174 +32,357 @@ var _ = fmt.Errorf
 var _ = math.Inf
 
 func (m *SimpleMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
-	enc.AddString("stringValue", m.StringValue)
-	enc.AddBool("boolValue", m.BoolValue)
+	var keyName string
+	_ = keyName
+
+	keyName = "stringValue" // field string_value = 1
+	enc.AddString(keyName, m.StringValue)
+
+	keyName = "boolValue" // field bool_value = 2
+	enc.AddBool(keyName, m.BoolValue)
+
 	return nil
 }
 
 func (m *NumberMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
-	enc.AddFloat32("floatValue", m.FloatValue)
-	enc.AddFloat64("doubleValue", m.DoubleValue)
-	enc.AddInt32("int32Value", m.Int32Value)
-	enc.AddInt64("int64Value", m.Int64Value)
-	enc.AddUint32("uint32Value", m.Uint32Value)
-	enc.AddUint64("uint64Value", m.Uint64Value)
-	enc.AddInt32("sint32Value", m.Sint32Value)
-	enc.AddInt64("sint64Value", m.Sint64Value)
-	enc.AddUint32("fixed32Value", m.Fixed32Value)
-	enc.AddUint64("fixed64Value", m.Fixed64Value)
-	enc.AddInt32("sfixed32Value", m.Sfixed32Value)
-	enc.AddInt64("sfixed64Value", m.Sfixed64Value)
+	var keyName string
+	_ = keyName
+
+	keyName = "floatValue" // field float_value = 1
+	enc.AddFloat32(keyName, m.FloatValue)
+
+	keyName = "doubleValue" // field double_value = 2
+	enc.AddFloat64(keyName, m.DoubleValue)
+
+	keyName = "int32Value" // field int32_value = 3
+	enc.AddInt32(keyName, m.Int32Value)
+
+	keyName = "int64Value" // field int64_value = 4
+	enc.AddInt64(keyName, m.Int64Value)
+
+	keyName = "uint32Value" // field uint32_value = 5
+	enc.AddUint32(keyName, m.Uint32Value)
+
+	keyName = "uint64Value" // field uint64_value = 6
+	enc.AddUint64(keyName, m.Uint64Value)
+
+	keyName = "sint32Value" // field sint32_value = 7
+	enc.AddInt32(keyName, m.Sint32Value)
+
+	keyName = "sint64Value" // field sint64_value = 8
+	enc.AddInt64(keyName, m.Sint64Value)
+
+	keyName = "fixed32Value" // field fixed32_value = 9
+	enc.AddUint32(keyName, m.Fixed32Value)
+
+	keyName = "fixed64Value" // field fixed64_value = 10
+	enc.AddUint64(keyName, m.Fixed64Value)
+
+	keyName = "sfixed32Value" // field sfixed32_value = 11
+	enc.AddInt32(keyName, m.Sfixed32Value)
+
+	keyName = "sfixed64Value" // field sfixed64_value = 12
+	enc.AddInt64(keyName, m.Sfixed64Value)
+
 	return nil
 }
 
 func (m *RepeatedNumberMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
-	// repeated
-	enc.AddArray("floatValues", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.FloatValues {
-			_ = v
-			aenc.AppendFloat32(v)
+	var keyName string
+	_ = keyName
+
+	keyName = "floatValues" // field float_values = 1
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.FloatValues {
+			_ = rv
+			aenc.AppendFloat32(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("doubleValues", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.DoubleValues {
-			_ = v
-			aenc.AppendFloat64(v)
+
+	keyName = "doubleValues" // field double_values = 2
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.DoubleValues {
+			_ = rv
+			aenc.AppendFloat64(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("int32Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Int32Values {
-			_ = v
-			aenc.AppendInt32(v)
+
+	keyName = "int32Values" // field int32_values = 3
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Int32Values {
+			_ = rv
+			aenc.AppendInt32(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("int64Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Int64Values {
-			_ = v
-			aenc.AppendInt64(v)
+
+	keyName = "int64Values" // field int64_values = 4
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Int64Values {
+			_ = rv
+			aenc.AppendInt64(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("uint32Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Uint32Values {
-			_ = v
-			aenc.AppendUint32(v)
+
+	keyName = "uint32Values" // field uint32_values = 5
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Uint32Values {
+			_ = rv
+			aenc.AppendUint32(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("uint64Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Uint64Values {
-			_ = v
-			aenc.AppendUint64(v)
+
+	keyName = "uint64Values" // field uint64_values = 6
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Uint64Values {
+			_ = rv
+			aenc.AppendUint64(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("sint32Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Sint32Values {
-			_ = v
-			aenc.AppendInt32(v)
+
+	keyName = "sint32Values" // field sint32_values = 7
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Sint32Values {
+			_ = rv
+			aenc.AppendInt32(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("sint64Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Sint64Values {
-			_ = v
-			aenc.AppendInt64(v)
+
+	keyName = "sint64Values" // field sint64_values = 8
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Sint64Values {
+			_ = rv
+			aenc.AppendInt64(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("fixed32Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Fixed32Values {
-			_ = v
-			aenc.AppendUint32(v)
+
+	keyName = "fixed32Values" // field fixed32_values = 9
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Fixed32Values {
+			_ = rv
+			aenc.AppendUint32(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("fixed64Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Fixed64Values {
-			_ = v
-			aenc.AppendUint64(v)
+
+	keyName = "fixed64Values" // field fixed64_values = 10
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Fixed64Values {
+			_ = rv
+			aenc.AppendUint64(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("sfixed32Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Sfixed32Values {
-			_ = v
-			aenc.AppendInt32(v)
+
+	keyName = "sfixed32Values" // field sfixed32_values = 11
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Sfixed32Values {
+			_ = rv
+			aenc.AppendInt32(rv)
 		}
 		return nil
 	}))
-	// repeated
-	enc.AddArray("sfixed64Values", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.Sfixed64Values {
-			_ = v
-			aenc.AppendInt64(v)
+
+	keyName = "sfixed64Values" // field sfixed64_values = 12
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.Sfixed64Values {
+			_ = rv
+			aenc.AppendInt64(rv)
 		}
 		return nil
 	}))
+
 	return nil
 }
 
 func (m *NestedMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+	var keyName string
+	_ = keyName
+
+	keyName = "nestedValue" // field nested_value = 1
 	if m.NestedValue != nil {
 		var vv interface{} = m.NestedValue
-		if _, ok := vv.(go_uber_org_zap_zapcore.ObjectMarshaler); ok {
-			enc.AddObject("nestedValue", m.NestedValue)
+		if marshaler, ok := vv.(go_uber_org_zap_zapcore.ObjectMarshaler); ok {
+			enc.AddObject(keyName, marshaler)
 		}
 	}
+
+	keyName = "repeatedNestedValues" // field repeated_nested_values = 2
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.RepeatedNestedValues {
+			_ = rv
+			if rv != nil {
+				var vv interface{} = rv
+				if marshaler, ok := vv.(go_uber_org_zap_zapcore.ObjectMarshaler); ok {
+					aenc.AppendObject(marshaler)
+				}
+			}
+		}
+		return nil
+	}))
+
 	return nil
 }
 
 func (m *NestedMessage_Nested) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
-	enc.AddInt32("int32Value", m.Int32Value)
-	enc.AddString("stringValue", m.StringValue)
+	var keyName string
+	_ = keyName
+
+	keyName = "int32Value" // field int32_value = 1
+	enc.AddInt32(keyName, m.Int32Value)
+
+	keyName = "stringValue" // field string_value = 2
+	enc.AddString(keyName, m.StringValue)
+
 	return nil
 }
 
 func (m *EnumMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
-	enc.AddString("numericEnumValue", m.NumericEnumValue.String())
-	// repeated
-	enc.AddArray("repeatedNumericEnumValues", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.RepeatedNumericEnumValues {
-			_ = v
-			aenc.AppendString(v.String())
+	var keyName string
+	_ = keyName
+
+	keyName = "numericEnumValue" // field numeric_enum_value = 1
+	enc.AddString(keyName, m.NumericEnumValue.String())
+
+	keyName = "repeatedNumericEnumValues" // field repeated_numeric_enum_values = 2
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.RepeatedNumericEnumValues {
+			_ = rv
+			aenc.AppendString(rv.String())
 		}
 		return nil
 	}))
-	enc.AddString("aliasedEnumValue", m.AliasedEnumValue.String())
-	enc.AddString("nestedEnumValue", m.NestedEnumValue.String())
-	// repeated
-	enc.AddArray("repeatedNestedEnumValues", go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
-		for _, v := range m.RepeatedNestedEnumValues {
-			_ = v
-			aenc.AppendString(v.String())
+
+	keyName = "aliasedEnumValue" // field aliased_enum_value = 3
+	enc.AddString(keyName, m.AliasedEnumValue.String())
+
+	keyName = "nestedEnumValue" // field nested_enum_value = 4
+	enc.AddString(keyName, m.NestedEnumValue.String())
+
+	keyName = "repeatedNestedEnumValues" // field repeated_nested_enum_values = 5
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.RepeatedNestedEnumValues {
+			_ = rv
+			aenc.AppendString(rv.String())
 		}
 		return nil
 	}))
+
 	return nil
 }
 
 func (m *Oneof) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+	var keyName string
+	_ = keyName
+
+	keyName = "int32Value" // field int32_value = 1
+	if ov, ok := m.GetOneofValue().(*Oneof_Int32Value); ok {
+		_ = ov
+		enc.AddInt32(keyName, ov.Int32Value)
+	}
+
+	keyName = "stringValue" // field string_value = 2
+	if ov, ok := m.GetOneofValue().(*Oneof_StringValue); ok {
+		_ = ov
+		enc.AddString(keyName, ov.StringValue)
+	}
+
 	return nil
 }
 
 func (m *OneofMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+	var keyName string
+	_ = keyName
+
+	keyName = "int32Value" // field int32_value = 1
+	if ov, ok := m.GetOneofValue().(*OneofMessage_Int32Value); ok {
+		_ = ov
+		enc.AddInt32(keyName, ov.Int32Value)
+	}
+
+	keyName = "stringValue" // field string_value = 2
+	if ov, ok := m.GetOneofValue().(*OneofMessage_StringValue); ok {
+		_ = ov
+		enc.AddString(keyName, ov.StringValue)
+	}
+
+	keyName = "repeatedOneofValues" // field repeated_oneof_values = 3
+	enc.AddArray(keyName, go_uber_org_zap_zapcore.ArrayMarshalerFunc(func(aenc go_uber_org_zap_zapcore.ArrayEncoder) error {
+		for _, rv := range m.RepeatedOneofValues {
+			_ = rv
+			if rv != nil {
+				var vv interface{} = rv
+				if marshaler, ok := vv.(go_uber_org_zap_zapcore.ObjectMarshaler); ok {
+					aenc.AppendObject(marshaler)
+				}
+			}
+		}
+		return nil
+	}))
+
 	return nil
 }
 
 func (m *MapMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+	var keyName string
+	_ = keyName
+
+	keyName = "mappedValue" // field mapped_value = 1
+	enc.AddObject(keyName, go_uber_org_zap_zapcore.ObjectMarshalerFunc(func(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+		for mk, mv := range m.MappedValue {
+			key := fmt.Sprint(mk)
+			_ = key
+			enc.AddString(key, mv)
+		}
+		return nil
+	}))
+
+	keyName = "mappedEnumValue" // field mapped_enum_value = 2
+	enc.AddObject(keyName, go_uber_org_zap_zapcore.ObjectMarshalerFunc(func(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+		for mk, mv := range m.MappedEnumValue {
+			key := mk
+			_ = key
+			enc.AddString(key, mv.String())
+		}
+		return nil
+	}))
+
+	keyName = "mappedNestedValue" // field mapped_nested_value = 3
+	enc.AddObject(keyName, go_uber_org_zap_zapcore.ObjectMarshalerFunc(func(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+		for mk, mv := range m.MappedNestedValue {
+			key := mk
+			_ = key
+			if mv != nil {
+				var vv interface{} = mv
+				if marshaler, ok := vv.(go_uber_org_zap_zapcore.ObjectMarshaler); ok {
+					enc.AddObject(key, marshaler)
+				}
+			}
+		}
+		return nil
+	}))
+
+	return nil
+}
+
+func (m *WellKnownTypeMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+	var keyName string
+	_ = keyName
+
+	keyName = "duration" // field duration = 1
+	if m.Duration != nil {
+		var vv interface{} = m.Duration
+		if marshaler, ok := vv.(go_uber_org_zap_zapcore.ObjectMarshaler); ok {
+			enc.AddObject(keyName, marshaler)
+		}
+	}
+
 	return nil
 }
