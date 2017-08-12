@@ -10,7 +10,7 @@ func ExampleTest() {
 		StringValue: "xyz",
 		BoolValue:   true,
 	}))
-	// output: {"level":"info","msg":"test","simple":{"stringValue":"xyz","boolValue":true}}
+	// output: {"level":"info","msg":"test","simple":{"string_value":"xyz","bool_value":true}}
 }
 
 func ExampleNumberMessage() {
@@ -29,7 +29,7 @@ func ExampleNumberMessage() {
 		Sfixed32Value: -11,
 		Sfixed64Value: -12,
 	}))
-	// output: {"level":"info","msg":"test","number":{"floatValue":0.5,"doubleValue":2.2,"int32Value":-3,"int64Value":-4,"uint32Value":5,"uint64Value":6,"sint32Value":-7,"sint64Value":-8,"fixed32Value":9,"fixed64Value":10,"sfixed32Value":-11,"sfixed64Value":-12}}
+	// output: {"level":"info","msg":"test","number":{"float_value":0.5,"double_value":2.2,"int32_value":-3,"int64_value":-4,"uint32_value":5,"uint64_value":6,"sint32_value":-7,"sint64_value":-8,"fixed32_value":9,"fixed64_value":10,"sfixed32_value":-11,"sfixed64_value":-12}}
 }
 
 func ExampleRepeatedNumberMessage() {
@@ -48,7 +48,7 @@ func ExampleRepeatedNumberMessage() {
 		Sfixed32Values: []int32{-11, 11},
 		Sfixed64Values: []int64{-12, 12},
 	}))
-	// output: {"level":"info","msg":"test","number":{"floatValues":[0.5,1],"doubleValues":[2.2,1],"int32Values":[-3,3],"int64Values":[-4,4],"uint32Values":[5,55],"uint64Values":[6,66],"sint32Values":[-7,7],"sint64Values":[-8,8],"fixed32Values":[9,99],"fixed64Values":[10,100],"sfixed32Values":[-11,11],"sfixed64Values":[-12,12]}}
+	// output: {"level":"info","msg":"test","number":{"float_values":[0.5,1],"double_values":[2.2,1],"int32_values":[-3,3],"int64_values":[-4,4],"uint32_values":[5,55],"uint64_values":[6,66],"sint32_values":[-7,7],"sint64_values":[-8,8],"fixed32_values":[9,99],"fixed64_values":[10,100],"sfixed32_values":[-11,11],"sfixed64_values":[-12,12]}}
 }
 
 func ExampleNestedMessage() {
@@ -69,7 +69,7 @@ func ExampleNestedMessage() {
 			},
 		},
 	}))
-	// output: {"level":"info","msg":"test","nested":{"nestedValue":{"int32Value":100,"stringValue":"xxx"},"repeatedNestedValues":[{"int32Value":200,"stringValue":"yyy"},{"int32Value":300,"stringValue":"zzz"}]}}
+	// output: {"level":"info","msg":"test","nested":{"nested_value":{"int32_value":100,"string_value":"xxx"},"repeated_nested_values":[{"int32_value":200,"string_value":"yyy"},{"int32_value":300,"string_value":"zzz"}]}}
 }
 
 func ExampleEnumMessage() {
@@ -87,7 +87,7 @@ func ExampleEnumMessage() {
 			EnumMessage_COMPLETED,
 		},
 	}))
-	// output: {"level":"info","msg":"test","enum":{"numericEnumValue":"ONE","repeatedNumericEnumValues":["ONE","TWO"],"aliasedEnumValue":"STARTED","nestedEnumValue":"PENDING","repeatedNestedEnumValues":["PENDING","COMPLETED"]}}
+	// output: {"level":"info","msg":"test","enum":{"numeric_enum_value":"ONE","repeated_numeric_enum_values":["ONE","TWO"],"aliased_enum_value":"STARTED","nested_enum_value":"PENDING","repeated_nested_enum_values":["PENDING","COMPLETED"]}}
 }
 
 func ExampleOneofMessage() {
@@ -103,7 +103,7 @@ func ExampleOneofMessage() {
 			},
 		},
 	}))
-	// output: {"level":"info","msg":"test","oneof":{"int32Value":1000,"repeatedOneofValues":[{"int32Value":1000},{"stringValue":"xyz"}]}}
+	// output: {"level":"info","msg":"test","oneof":{"int32_value":1000,"repeated_oneof_values":[{"int32_value":1000},{"string_value":"xyz"}]}}
 }
 
 func ExampleMapMessage() {
@@ -136,5 +136,5 @@ func ExampleMapMessage() {
 			},
 		},
 	}))
-	// output: {"level":"info","msg":"test","map":{"mappedValue":{"1":"foo","2":"bar"},"mappedEnumValue":{"one":"ONE","two":"TWO"},"mappedNestedValue":{"foo":{"nestedValue":{"int32Value":100,"stringValue":"xxx"},"repeatedNestedValues":[{"int32Value":200,"stringValue":"yyy"},{"int32Value":300,"stringValue":"zzz"}]}}}}
+	// output: {"level":"info","msg":"test","map":{"mapped_value":{"1":"foo","2":"bar"},"mapped_enum_value":{"one":"ONE","two":"TWO"},"mapped_nested_value":{"foo":{"nested_value":{"int32_value":100,"string_value":"xxx"},"repeated_nested_values":[{"int32_value":200,"string_value":"yyy"},{"int32_value":300,"string_value":"zzz"}]}}}}
 }
