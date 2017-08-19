@@ -7,7 +7,7 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 	"github.com/gogo/protobuf/protoc-gen-gogo/generator"
-	"github.com/kazegusuri/go-protoc-zap-marshaler/plugin"
+	"github.com/kazegusuri/go-proto-zap-marshaler/plugin"
 )
 
 func main() {

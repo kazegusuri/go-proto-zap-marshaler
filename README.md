@@ -7,7 +7,7 @@ A protoc plugin whitch generates `MarshalLogObject()` functions for each generat
 First you need `protoc-gen-zap-marshaler` of protoc plugin. You can get it by doing:
 
 ```bash
-$ go get github.com/kazegusuri/go-protoc-zap-marshaler/protoc-gen-zap-marshaler
+$ go get github.com/kazegusuri/go-proto-zap-marshaler/protoc-gen-zap-marshaler
 ```
 
 To generate marshaler functions from proto, use `--zap-marshaler_out` with `protoc` command. That runs `protoc-gen-zap-marshaler` internally and then generates `*.zap.go` files.
