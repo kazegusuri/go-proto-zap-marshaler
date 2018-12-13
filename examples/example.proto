@@ -3,15 +3,38 @@ syntax = "proto3";
 package kazegusuri.zapmarshaler.example;
 option go_package = "examples";
 
+import "zap_marshaler.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 
 message SimpleMessage {
+  string string_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  bool bool_value = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+}
+
+message NotLoggingSimpleMessage {
   string string_value = 1;
   bool bool_value = 2;
 }
 
 message NumberMessage {
+  float float_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  double double_value = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+
+  int32 int32_value = 3 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  int64 int64_value = 4 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  uint32 uint32_value = 5 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  uint64 uint64_value = 6 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  sint32 sint32_value = 7 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  sint64 sint64_value = 8 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+
+  fixed32 fixed32_value = 9 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  fixed64 fixed64_value = 10 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  sfixed32 sfixed32_value = 11 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  sfixed64 sfixed64_value = 12 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+}
+
+message NotLoggingNumberMessage {
   float float_value = 1;
   double double_value = 2;
 
@@ -29,6 +52,23 @@ message NumberMessage {
 }
 
 message RepeatedNumberMessage {
+  repeated float float_values = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated double double_values = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+
+  repeated int32 int32_values = 3 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated int64 int64_values = 4 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated uint32 uint32_values = 5 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated uint64 uint64_values = 6 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated sint32 sint32_values = 7 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated sint64 sint64_values = 8 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+
+  repeated fixed32 fixed32_values = 9 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated fixed64 fixed64_values = 10 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated sfixed32 sfixed32_values = 11 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated sfixed64 sfixed64_values = 12 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+}
+
+message NotLoggingRepeatedNumberMessage {
   repeated float float_values = 1;
   repeated double double_values = 2;
 
@@ -47,6 +87,15 @@ message RepeatedNumberMessage {
 
 message NestedMessage {
   message Nested {
+    int32 int32_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+    string string_value = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  }
+  Nested nested_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated Nested repeated_nested_values = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+}
+
+message NotLoggingNestedMessage {
+  message Nested {
     int32 int32_value = 1;
     string string_value = 2;
   }
@@ -55,6 +104,21 @@ message NestedMessage {
 }
 
 message EnumMessage {
+  NumericEnum numeric_enum_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated NumericEnum repeated_numeric_enum_values = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+
+  AliasedEnum aliased_enum_value = 3 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+
+  enum Nested {
+    UNKNOWN = 0;
+    PENDING  = 1;
+    COMPLETED  = 2;
+  }
+  Nested nested_enum_value = 4 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  repeated Nested repeated_nested_enum_values = 5 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+}
+
+message NotLoggingEnumMessage {
   NumericEnum numeric_enum_value = 1;
   repeated NumericEnum repeated_numeric_enum_values = 2;
 
@@ -84,12 +148,21 @@ enum AliasedEnum {
 
 message Oneof {
   oneof oneof_value {
-    int32 int32_value = 1;
-    string string_value = 2;
+    int32 int32_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+    string string_value = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
   }
 }
 
 message OneofMessage {
+  oneof oneof_value {
+    int32 int32_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+    string string_value = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  }
+
+  repeated Oneof repeated_oneof_values = 3 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+}
+
+message NotLoggingOneofMessage {
   oneof oneof_value {
     int32 int32_value = 1;
     string string_value = 2;
@@ -99,16 +172,37 @@ message OneofMessage {
 }
 
 message MapMessage {
+  map<int32, string> mapped_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  map<string, NumericEnum> mapped_enum_value = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  map<string, NestedMessage> mapped_nested_value = 3 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+}
+
+message NotLoggingMapMessage {
   map<int32, string> mapped_value = 1;
   map<string, NumericEnum> mapped_enum_value = 2;
   map<string, NestedMessage> mapped_nested_value = 3;
 }
 
 message JsonNameOptionMessage {
-  string string_value = 1 [json_name="renamed_value"];;
+  string string_value = 1 [json_name="renamed_value", (kazegusuri.zap_mashaler.field) = {enabled: true}];
+}
+
+message NotLoggingJsonNameOptionMessage {
+  string string_value = 1 [json_name="renamed_value"];
 }
 
 message WellKnownTypeMessage {
+  google.protobuf.Duration duration = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  google.protobuf.Timestamp timestamp = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+}
+
+message NotLoggingWellKnownTypeMessage {
   google.protobuf.Duration duration = 1;
   google.protobuf.Timestamp timestamp = 2;
+}
+
+message MixedLoggingMessage {
+  string string_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
+  bool bool_value = 2 [(kazegusuri.zap_mashaler.field) = {enabled: false}];
+  int32 int32_value = 3;
 }

@@ -4,8 +4,10 @@ import (
 	"fmt"
 
 	"github.com/gogo/protobuf/gogoproto"
+	"github.com/gogo/protobuf/proto"
 	"github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
 	"github.com/gogo/protobuf/protoc-gen-gogo/generator"
+	"github.com/kazegusuri/go-proto-zap-marshaler"
 )
 
 type plugin struct {
@@ -43,6 +45,19 @@ func (p *plugin) Generate(file *generator.FileDescriptor) {
 	}
 }
 
+func isTarget(d *descriptor.FieldDescriptorProto) bool {
+	if d.GetOptions() == nil {
+		return false
+	}
+	ext, err := proto.GetExtension(d.Options, zap_marshaler.E_Field)
+	if err != nil {
+		return false
+	}
+
+	rule, ok := ext.(*zap_marshaler.ZapMarshalerRule)
+	return ok && rule.Enabled
+}
+
 func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *generator.Descriptor) {
 	typeName := generator.CamelCaseSlice(message.TypeName())
 	p.P(`func (m *`, typeName, `) MarshalLogObject(enc `, p.zapcore.Use(), `.ObjectEncoder) error {`)
@@ -52,6 +67,9 @@ func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *
 	p.P("")
 
 	for _, field := range message.Field {
+		if !isTarget(field) {
+			continue
+		}
 		fieldName := p.GetOneOfFieldName(message, field)
 		jsonName := field.GetName()
 		variableName := "m." + fieldName

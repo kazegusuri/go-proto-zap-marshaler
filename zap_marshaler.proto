@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package kazegusuri.zap_mashaler;
+
+import "google/protobuf/descriptor.proto";
+option go_package = "github.com/kazegusuri/go-proto-zap-marshaler;zap_marshaler";
+
+extend google.protobuf.FieldOptions {
+    ZapMarshalerRule field = 64553;
+}
+
+message ZapMarshalerRule {
+    bool enabled = 1;
+}
