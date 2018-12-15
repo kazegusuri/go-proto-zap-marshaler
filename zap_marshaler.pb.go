@@ -3,10 +3,10 @@
 
 package zap_marshaler // import "github.com/kazegusuri/go-proto-zap-marshaler"
 
-import "github.com/gogo/protobuf/proto"
-import "fmt"
-import "math"
-import google_protobuf "github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
+import proto "github.com/gogo/protobuf/proto"
+import fmt "fmt"
+import math "math"
+import descriptor "github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -58,7 +58,7 @@ func (m *ZapMarshalerRule) GetEnabled() bool {
 }
 
 var E_Field = &proto.ExtensionDesc{
-	ExtendedType:  (*google_protobuf.FieldOptions)(nil),
+	ExtendedType:  (*descriptor.FieldOptions)(nil),
 	ExtensionType: (*ZapMarshalerRule)(nil),
 	Field:         64553,
 	Name:          "kazegusuri.zap_mashaler.field",
