@@ -9,4 +9,4 @@ install:
 	go install $(REPOSITORY)/protoc-gen-zap-marshaler
 
 test:
-	go test -v $(REPOSITORY)/examples
+	go test -v $(REPOSITORY)/examples/...
