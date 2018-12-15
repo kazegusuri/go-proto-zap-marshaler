@@ -15,10 +15,16 @@ type plugin struct {
 	generator.PluginImports
 	zapcore generator.Single
 	ptypes  generator.Single
+
+	secure bool
 }
 
-func NewPlugin() generator.Plugin {
-	return &plugin{}
+// NewPlugin creates a plugin for protoc.
+//
+// If secure is true, the plugin respects the zap_marshaler option
+// for fields to be marshaled by zap.
+func NewPlugin(secure bool) generator.Plugin {
+	return &plugin{secure: secure}
 }
 
 func (p *plugin) Name() string {
@@ -67,9 +73,11 @@ func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *
 	p.P("")
 
 	for _, field := range message.Field {
-		if !isTarget(field) {
+		// see the field option only when secure option is true.
+		if p.secure && !isTarget(field) {
 			continue
 		}
+
 		fieldName := p.GetOneOfFieldName(message, field)
 		jsonName := field.GetName()
 		variableName := "m." + fieldName
