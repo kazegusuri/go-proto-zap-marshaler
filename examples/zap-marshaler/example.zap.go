@@ -5,7 +5,7 @@ package examples
 
 import go_uber_org_zap_zapcore "go.uber.org/zap/zapcore"
 import github_com_golang_protobuf_ptypes "github.com/golang/protobuf/ptypes"
-import proto "github.com/gogo/protobuf/proto"
+import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 import _ "github.com/golang/protobuf/ptypes/duration"

@@ -6,7 +6,6 @@ regenerate:
 
 regenerate/proto:
 	rm -rf gen && mkdir -p gen
-	# protoc -I. -I${GOPATH}/src --gogo_out=Mgoogle/protobuf/descriptor.proto=github.com/gogo/protobuf/gogoproto/descriptor.proto:gen zap_marshaler.proto
 	protoc -I. -I${GOPATH}/src --gogo_out=Mgoogle/protobuf/descriptor.proto=github.com/gogo/protobuf/protoc-gen-gogo/descriptor:gen zap_marshaler.proto
 	mv gen/$(REPOSITORY)/zap_marshaler.pb.go ./
 

@@ -34,6 +34,7 @@ func main() {
 
 	for i := range gen.Response.File {
 		gen.Response.File[i].Name = proto.String(strings.Replace(*gen.Response.File[i].Name, ".pb.go", ".zap.go", -1))
+		gen.Response.File[i].Content = proto.String(strings.Replace(*gen.Response.File[i].Content, `"github.com/gogo/protobuf/proto"`, `"github.com/golang/protobuf/proto"`, -1))
 	}
 
 	data, err = proto.Marshal(gen.Response)
