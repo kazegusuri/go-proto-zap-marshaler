@@ -35,7 +35,7 @@ This plugin generates marshaler functions as well as `protoc-gen-zap-marshaler`,
 
 To enable field option for message fields, you need to define proto like this:
 
-```
+```proto
 message SimpleMessage {
   string string_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
   bool bool_value = 2 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
@@ -50,7 +50,7 @@ $ protoc --zap-marshaler-secure_out=. path/to/example.proto
 
 #### Field option
 
-```
+```proto
 message ZapMarshalerRule {
     bool enabled = 1;
 }
