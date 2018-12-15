@@ -30,7 +30,7 @@ func main() {
 	gen.WrapTypes()
 	gen.SetPackageNames()
 	gen.BuildTypeNameMap()
-	gen.GeneratePlugin(plugin.NewPlugin(false))
+	gen.GeneratePlugin(plugin.NewPlugin(true))
 
 	for i := range gen.Response.File {
 		gen.Response.File[i].Name = proto.String(strings.Replace(*gen.Response.File[i].Name, ".pb.go", ".zap.go", -1))
