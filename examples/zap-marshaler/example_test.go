@@ -324,3 +324,12 @@ func ExampleMixedLoggingMessage() {
 	}))
 	// {"level":"info","msg":"test","mlm":{"string_value":"xxx","bool_value":true,"int32_value":1}}
 }
+
+func ExampleTestWithNilField() {
+	l := zap.NewExample()
+	sl := l.Sugar()
+	var sm *SimpleMessage = nil
+	sl = sl.With("SimpleMessage", sm)
+	sl.Infow("test")
+	// output: {"level":"info","msg":"test","SimpleMessage":{}}
+}

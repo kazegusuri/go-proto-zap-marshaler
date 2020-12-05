@@ -71,6 +71,10 @@ func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *
 	p.P("var keyName string")
 	p.P("_ = keyName")
 	p.P("")
+	p.P("if m == nil {")
+	p.P("return nil")
+	p.P("}")
+	p.P(""
 
 	for _, field := range message.Field {
 		// see the field option only when secure option is true.
