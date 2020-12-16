@@ -7,7 +7,7 @@ import (
 	"github.com/gogo/protobuf/proto"
 	"github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
 	"github.com/gogo/protobuf/protoc-gen-gogo/generator"
-	"github.com/kazegusuri/go-proto-zap-marshaler"
+	zap_marshaler "github.com/kazegusuri/go-proto-zap-marshaler"
 )
 
 type plugin struct {
@@ -74,7 +74,7 @@ func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *
 	p.P("if m == nil {")
 	p.P("return nil")
 	p.P("}")
-	p.P(""
+	p.P("")
 
 	for _, field := range message.Field {
 		// see the field option only when secure option is true.
