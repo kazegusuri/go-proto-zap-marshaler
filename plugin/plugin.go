@@ -7,7 +7,7 @@ import (
 	"github.com/gogo/protobuf/proto"
 	"github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
 	"github.com/gogo/protobuf/protoc-gen-gogo/generator"
-	"github.com/kazegusuri/go-proto-zap-marshaler"
+	zap_marshaler "github.com/kazegusuri/go-proto-zap-marshaler"
 )
 
 type plugin struct {
@@ -70,6 +70,10 @@ func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *
 	p.In()
 	p.P("var keyName string")
 	p.P("_ = keyName")
+	p.P("")
+	p.P("if m == nil {")
+	p.P("return nil")
+	p.P("}")
 	p.P("")
 
 	for _, field := range message.Field {

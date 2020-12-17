@@ -318,9 +318,18 @@ func ExampleNotLoggingWellKnownTypeMessage() {
 func ExampleMixedLoggingMessage() {
 	l := zap.NewExample()
 	l.Info("test", zap.Object("mlm", &MixedLoggingMessage{
-		StringValue:          "xxx",
-		BoolValue:            true,
-		Int32Value:           1,
+		StringValue: "xxx",
+		BoolValue:   true,
+		Int32Value:  1,
 	}))
 	// output: {"level":"info","msg":"test","mlm":{"string_value":"xxx"}}
+}
+
+func ExampleTestWithNilField() {
+	l := zap.NewExample()
+	sl := l.Sugar()
+	var sm *SimpleMessage = nil
+	sl = sl.With("SimpleMessage", sm)
+	sl.Infow("test")
+	// output: {"level":"info","msg":"test","SimpleMessage":{}}
 }
