@@ -1,6 +1,7 @@
 package plugin
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/gogo/protobuf/gogoproto"
@@ -62,6 +63,19 @@ func isTarget(d *descriptor.FieldDescriptorProto) bool {
 
 	rule, ok := ext.(*zap_marshaler.ZapMarshalerRule)
 	return ok && rule.Enabled
+}
+
+func isRaw(d *descriptor.FieldDescriptorProto) bool {
+	if d.GetOptions() == nil {
+		return false
+	}
+	ext, err := proto.GetExtension(d.Options, zap_marshaler.E_Field)
+	if err != nil {
+		return false
+	}
+
+	rule, ok := ext.(*zap_marshaler.ZapMarshalerRule)
+	return ok && rule.Raw
 }
 
 func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *generator.Descriptor) {
@@ -133,6 +147,11 @@ func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *
 
 func (p *plugin) isOneofType(field *descriptor.FieldDescriptorProto) bool {
 	return field.OneofIndex != nil
+}
+
+func IsJSON(str string) bool {
+	var js json.RawMessage
+	return json.Unmarshal([]byte(str), &js) == nil
 }
 
 func (p *plugin) generateForField(file *generator.FileDescriptor, message *generator.Descriptor, field *descriptor.FieldDescriptorProto, keyName, variableName string, repeated bool) {
@@ -224,8 +243,16 @@ func (p *plugin) generateForField(file *generator.FileDescriptor, message *gener
 	case descriptor.FieldDescriptorProto_TYPE_BOOL:
 		p.generateAdder("Bool", keyName, variableName, repeated)
 	case descriptor.FieldDescriptorProto_TYPE_STRING:
+		if isRaw(field) {
+			p.generateAdder("RawString", keyName, variableName, repeated)
+			break
+		}
 		p.generateAdder("String", keyName, variableName, repeated)
 	case descriptor.FieldDescriptorProto_TYPE_BYTES:
+		if isRaw(field) {
+			p.generateAdder("RawByteString", keyName, variableName, repeated)
+			break
+		}
 		p.generateAdder("ByteString", keyName, variableName, repeated)
 
 	case descriptor.FieldDescriptorProto_TYPE_ENUM:
