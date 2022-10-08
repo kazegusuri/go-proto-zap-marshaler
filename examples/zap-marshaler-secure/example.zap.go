@@ -7,9 +7,9 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/kazegusuri/go-proto-zap-marshaler"
 	_ "github.com/golang/protobuf/ptypes/duration"
 	_ "github.com/golang/protobuf/ptypes/timestamp"
-	_ "github.com/kazegusuri/go-proto-zap-marshaler"
 	go_uber_org_zap_zapcore "go.uber.org/zap/zapcore"
 	github_com_golang_protobuf_ptypes "github.com/golang/protobuf/ptypes"
 )
@@ -43,6 +43,10 @@ func (m *NotLoggingSimpleMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.O
 	if m == nil {
 		return nil
 	}
+
+	// disabled field string_value = 1
+
+	// disabled field bool_value = 2
 
 	return nil
 }
@@ -101,6 +105,30 @@ func (m *NotLoggingNumberMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.O
 	if m == nil {
 		return nil
 	}
+
+	// disabled field float_value = 1
+
+	// disabled field double_value = 2
+
+	// disabled field int32_value = 3
+
+	// disabled field int64_value = 4
+
+	// disabled field uint32_value = 5
+
+	// disabled field uint64_value = 6
+
+	// disabled field sint32_value = 7
+
+	// disabled field sint64_value = 8
+
+	// disabled field fixed32_value = 9
+
+	// disabled field fixed64_value = 10
+
+	// disabled field sfixed32_value = 11
+
+	// disabled field sfixed64_value = 12
 
 	return nil
 }
@@ -232,6 +260,30 @@ func (m *NotLoggingRepeatedNumberMessage) MarshalLogObject(enc go_uber_org_zap_z
 		return nil
 	}
 
+	// disabled field float_values = 1
+
+	// disabled field double_values = 2
+
+	// disabled field int32_values = 3
+
+	// disabled field int64_values = 4
+
+	// disabled field uint32_values = 5
+
+	// disabled field uint64_values = 6
+
+	// disabled field sint32_values = 7
+
+	// disabled field sint64_values = 8
+
+	// disabled field fixed32_values = 9
+
+	// disabled field fixed64_values = 10
+
+	// disabled field sfixed32_values = 11
+
+	// disabled field sfixed64_values = 12
+
 	return nil
 }
 
@@ -293,6 +345,10 @@ func (m *NotLoggingNestedMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.O
 		return nil
 	}
 
+	// disabled field nested_value = 1
+
+	// disabled field repeated_nested_values = 2
+
 	return nil
 }
 
@@ -303,6 +359,10 @@ func (m *NotLoggingNestedMessage_Nested) MarshalLogObject(enc go_uber_org_zap_za
 	if m == nil {
 		return nil
 	}
+
+	// disabled field int32_value = 1
+
+	// disabled field string_value = 2
 
 	return nil
 }
@@ -352,6 +412,16 @@ func (m *NotLoggingEnumMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.Obj
 	if m == nil {
 		return nil
 	}
+
+	// disabled field numeric_enum_value = 1
+
+	// disabled field repeated_numeric_enum_values = 2
+
+	// disabled field aliased_enum_value = 3
+
+	// disabled field nested_enum_value = 4
+
+	// disabled field repeated_nested_enum_values = 5
 
 	return nil
 }
@@ -424,6 +494,12 @@ func (m *NotLoggingOneofMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.Ob
 		return nil
 	}
 
+	// disabled field int32_value = 1
+
+	// disabled field string_value = 2
+
+	// disabled field repeated_oneof_values = 3
+
 	return nil
 }
 
@@ -481,6 +557,12 @@ func (m *NotLoggingMapMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.Obje
 		return nil
 	}
 
+	// disabled field mapped_value = 1
+
+	// disabled field mapped_enum_value = 2
+
+	// disabled field mapped_nested_value = 3
+
 	return nil
 }
 
@@ -505,6 +587,8 @@ func (m *NotLoggingJsonNameOptionMessage) MarshalLogObject(enc go_uber_org_zap_z
 	if m == nil {
 		return nil
 	}
+
+	// disabled field string_value = 1
 
 	return nil
 }
@@ -538,6 +622,10 @@ func (m *NotLoggingWellKnownTypeMessage) MarshalLogObject(enc go_uber_org_zap_za
 		return nil
 	}
 
+	// disabled field duration = 1
+
+	// disabled field timestamp = 2
+
 	return nil
 }
 
@@ -552,6 +640,10 @@ func (m *MixedLoggingMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.Objec
 	keyName = "string_value" // field string_value = 1
 	enc.AddString(keyName, m.StringValue)
 
+	// disabled field bool_value = 2
+
+	// disabled field int32_value = 3
+
 	return nil
 }
 
@@ -562,6 +654,10 @@ func (m *RawFieldMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEnc
 	if m == nil {
 		return nil
 	}
+
+	// disabled field a = 1
+
+	// disabled field b = 2
 
 	return nil
 }

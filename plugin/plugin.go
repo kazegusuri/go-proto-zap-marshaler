@@ -78,6 +78,19 @@ func isRaw(d *descriptor.FieldDescriptorProto) bool {
 	return ok && rule.Raw
 }
 
+func isSkip(d *descriptor.FieldDescriptorProto) bool {
+	if d.GetOptions() == nil {
+		return false
+	}
+	ext, err := proto.GetExtension(d.Options, zap_marshaler.E_Field)
+	if err != nil {
+		return false
+	}
+
+	rule, ok := ext.(*zap_marshaler.ZapMarshalerRule)
+	return ok && rule.Skip
+}
+
 func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *generator.Descriptor) {
 	typeName := generator.CamelCaseSlice(message.TypeName())
 	p.P(`func (m *`, typeName, `) MarshalLogObject(enc `, p.zapcore.Use(), `.ObjectEncoder) error {`)
@@ -93,6 +106,11 @@ func (p *plugin) generateProto3Message(file *generator.FileDescriptor, message *
 	for _, field := range message.Field {
 		// see the field option only when secure option is true.
 		if p.secure && !isTarget(field) {
+			p.P(`// disabled field `, field.GetName(), " = ", fmt.Sprint(field.GetNumber()), "\n")
+			continue
+		}
+		if isSkip(field) {
+			p.P(`// skip field `, field.GetName(), " = ", fmt.Sprint(field.GetNumber()), "\n")
 			continue
 		}
 

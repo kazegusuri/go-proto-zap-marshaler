@@ -209,5 +209,6 @@ message MixedLoggingMessage {
 
 message RawFieldMessage {
     string a = 1;
-    string b = 2 [(kazegusuri.zap_mashaler.field) = {raw: true}];
+    // string b = 2 [(kazegusuri.zap_mashaler.field) = {raw: true}];
+    string b = 2 [(kazegusuri.zap_mashaler.field) = {skip: true}];
 }

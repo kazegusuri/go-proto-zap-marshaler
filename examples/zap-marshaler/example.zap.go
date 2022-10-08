@@ -7,9 +7,9 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/kazegusuri/go-proto-zap-marshaler"
 	_ "github.com/golang/protobuf/ptypes/duration"
 	_ "github.com/golang/protobuf/ptypes/timestamp"
-	_ "github.com/kazegusuri/go-proto-zap-marshaler"
 	go_uber_org_zap_zapcore "go.uber.org/zap/zapcore"
 	github_com_golang_protobuf_ptypes "github.com/golang/protobuf/ptypes"
 )
@@ -851,8 +851,7 @@ func (m *RawFieldMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEnc
 	keyName = "a" // field a = 1
 	enc.AddString(keyName, m.A)
 
-	keyName = "b" // field b = 2
-	enc.AddRawString(keyName, m.B)
+	// skip field b = 2
 
 	return nil
 }

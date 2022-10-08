@@ -12,4 +12,5 @@ extend google.protobuf.FieldOptions {
 message ZapMarshalerRule {
     bool enabled = 1;
     bool raw = 2;
+    bool skip = 3;
 }
