@@ -647,7 +647,7 @@ func (m *MixedLoggingMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.Objec
 	return nil
 }
 
-func (m *RawFieldMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
+func (m *SkipFieldMessage) MarshalLogObject(enc go_uber_org_zap_zapcore.ObjectEncoder) error {
 	var keyName string
 	_ = keyName
 

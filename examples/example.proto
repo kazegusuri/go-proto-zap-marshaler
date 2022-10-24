@@ -207,8 +207,7 @@ message MixedLoggingMessage {
   int32 int32_value = 3;
 }
 
-message RawFieldMessage {
+message SkipFieldMessage {
     string a = 1;
-    // string b = 2 [(kazegusuri.zap_mashaler.field) = {raw: true}];
     string b = 2 [(kazegusuri.zap_mashaler.field) = {skip: true}];
 }
