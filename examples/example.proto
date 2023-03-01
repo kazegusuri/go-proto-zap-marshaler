@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package kazegusuri.zapmarshaler.example;
-option go_package = "examples";
+option go_package = "./;examples";
 
 import "zap_marshaler.proto";
 import "google/protobuf/duration.proto";
@@ -205,4 +205,9 @@ message MixedLoggingMessage {
   string string_value = 1 [(kazegusuri.zap_mashaler.field) = {enabled: true}];
   bool bool_value = 2 [(kazegusuri.zap_mashaler.field) = {enabled: false}];
   int32 int32_value = 3;
+}
+
+message SkipFieldMessage {
+    string a = 1;
+    string b = 2 [(kazegusuri.zap_mashaler.field) = {skip: true}];
 }
